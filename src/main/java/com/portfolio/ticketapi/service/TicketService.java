@@ -6,8 +6,10 @@ import com.portfolio.ticketapi.model.TicketStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -46,5 +48,11 @@ public class TicketService {
 
     public List<Ticket> getAllTickets() {
         return tickets;
+    }
+
+    public Optional<Ticket> getTicketById(Long id) {
+        return tickets.stream()
+                .filter(ticket -> ticket.getId().equals(id))
+                .findFirst();
     }
 }
