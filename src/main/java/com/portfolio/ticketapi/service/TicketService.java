@@ -1,5 +1,6 @@
 package com.portfolio.ticketapi.service;
 
+import com.portfolio.ticketapi.dto.CreateTicketRequest;
 import com.portfolio.ticketapi.model.Ticket;
 import com.portfolio.ticketapi.model.TicketPriority;
 import com.portfolio.ticketapi.model.TicketStatus;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class TicketService {
 
     private final List<Ticket> tickets = new ArrayList<>();
+    private Long nextId = 4L;
 
     public TicketService() {
 
@@ -54,5 +56,21 @@ public class TicketService {
         return tickets.stream()
                 .filter(ticket -> ticket.getId().equals(id))
                 .findFirst();
+    }
+
+    public Ticket createTicket(CreateTicketRequest request) {
+
+        Ticket ticket = new Ticket(
+                nextId++,
+                request.getTitle(),
+                request.getDescription(),
+                TicketStatus.OPEN,
+                request.getPriority(),
+                LocalDateTime.now()
+        );
+
+        tickets.add(ticket);
+
+        return ticket;
     }
 }
