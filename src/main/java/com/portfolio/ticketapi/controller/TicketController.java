@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class TicketController {
 
     @PostMapping
     public ResponseEntity<Ticket> createTicket(
-            @RequestBody CreateTicketRequest request) {
+            @Valid @RequestBody CreateTicketRequest request) {
 
         Ticket createdTicket = ticketService.createTicket(request);
 
