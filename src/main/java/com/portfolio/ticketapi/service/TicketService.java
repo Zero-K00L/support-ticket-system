@@ -1,5 +1,6 @@
 package com.portfolio.ticketapi.service;
 
+import com.portfolio.ticketapi.dto.UpdateTicketRequest;
 import com.portfolio.ticketapi.dto.CreateTicketRequest;
 import com.portfolio.ticketapi.model.Ticket;
 import com.portfolio.ticketapi.model.TicketPriority;
@@ -72,5 +73,17 @@ public class TicketService {
         tickets.add(ticket);
 
         return ticket;
+    }
+
+    public Optional<Ticket> updateTicket(
+            Long id,
+            UpdateTicketRequest request) {
+
+        return getTicketById(id).map(ticket -> {
+            ticket.setStatus(request.getStatus());
+            ticket.setPriority(request.getPriority());
+
+            return ticket;
+        });
     }
 }

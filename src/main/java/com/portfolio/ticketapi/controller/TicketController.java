@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
+import com.portfolio.ticketapi.dto.UpdateTicketRequest;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -46,4 +48,17 @@ public class TicketController {
 
         return ResponseEntity.status(201).body(createdTicket);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ticket> updateTicket(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateTicketRequest request) {
+
+        return ticketService.updateTicket(id, request)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+
+
 }
