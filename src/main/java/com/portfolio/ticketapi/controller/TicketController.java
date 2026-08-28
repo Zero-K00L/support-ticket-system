@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
 import com.portfolio.ticketapi.dto.UpdateTicketRequest;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -60,5 +61,17 @@ public class TicketController {
     }
 
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket (
+            @PathVariable Long id) {
+
+        boolean deleted = ticketService.deleteTicket(id);
+
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 
 }
