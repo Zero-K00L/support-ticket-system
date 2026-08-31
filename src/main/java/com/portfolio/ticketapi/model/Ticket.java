@@ -2,12 +2,37 @@ package com.portfolio.ticketapi.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tickets")
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false, length = 1000)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TicketStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TicketPriority priority;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     public Ticket() {
